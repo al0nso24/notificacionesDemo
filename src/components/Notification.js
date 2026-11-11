@@ -16,3 +16,40 @@ Notifications.setNotificationHandler({
         shouldSetBadge: false,
     }),
 });
+
+async function registerForPushNotificationsAsync() {
+    let token;
+    if(Platform.OS === "android"){
+        await Notifications.setNotificationChannelAsync("default", {
+            name: "General",
+            importance: Notifications.AndroidImportance.MAX
+        })
+    }
+
+    if (Device.isDevice){
+        const {status: existingStatus} = await Notifications.getPermissionsAsync();
+        let finalStatus = existingStatus;
+
+        if(existingStatus !== "granted"){
+            const {status} = await Notifications.requestPermissionsAsync();
+            finalStatus = status;
+        }
+
+        if(finalStatus !== "granted"){
+            alert("Permiso para notificaciones denegado");
+            return;
+        }
+
+        try {
+            const projectId = Constants?.expoConfig?.extra?.eas?.projectId;
+            token = (await Notifications.getExpoPushTokenAsync({projectId,})).data;
+            console.log('Token del dispositivo:', token);
+
+        } catch (e) {
+            console.log('No se pudo obtener el token:', e.message);
+        }
+    }else{
+        alert('Debes usar un dispositivo físico para notificaciones');
+    }
+    return token;
+}
