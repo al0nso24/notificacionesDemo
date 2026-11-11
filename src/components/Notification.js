@@ -20,10 +20,11 @@ Notifications.setNotificationHandler({
 async function registerForPushNotificationsAsync() {
     let token;
     if(Platform.OS === "android"){
-        await Notifications.setNotificationChannelAsync("default", {
-            name: "General",
-            importance: Notifications.AndroidImportance.MAX
-        })
+        //Por alguna razón quitando esto ya no da error
+        // await Notifications.setNotificationChannelAsync("default", {
+        //     name: "General",
+        //     importance: Notifications.AndroidImportance.MAX
+        // })
     }
 
     if (Device.isDevice){
@@ -92,6 +93,7 @@ const styles = StyleSheet.create(({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        //Separa lo que aparece en la pantalla
         gap: 18
     },
 
