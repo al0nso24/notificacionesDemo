@@ -79,7 +79,7 @@ export default function Notification(){
         <View style={styles.container}>
             <Text style={styles.title}>Token de dispositivo:</Text>
             <Text selectable>{token ?? 'Obteniendo...'}</Text>
-            <Button
+            <Button style={styles.btn}
                 title="Programar notificación"
                 onPress={scheduleNotification}
             />
@@ -89,10 +89,13 @@ export default function Notification(){
 
 const styles = StyleSheet.create(({
     container: {
-
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 18
     },
 
     title: {
-
+        fontWeight: "bold"
     }
 }))
