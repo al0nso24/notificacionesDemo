@@ -54,6 +54,20 @@ async function registerForPushNotificationsAsync() {
     return token;
 }
 
+async function scheduleNotification() {
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            title: 'Notificación',
+            body: 'Esta es una prueba de notificación local.',
+        },
+        trigger: {
+            type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+            seconds: 5,
+        },
+    });
+    console.log('Notificación programada para dentro de 5 s');
+}
+
 export default function Notification(){
     const [token, setToken] = useState(null);
 
@@ -72,3 +86,13 @@ export default function Notification(){
         </View>
     )
 }
+
+const styles = StyleSheet.create(({
+    container: {
+
+    },
+
+    title: {
+
+    }
+}))
