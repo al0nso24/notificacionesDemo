@@ -53,3 +53,22 @@ async function registerForPushNotificationsAsync() {
     }
     return token;
 }
+
+export default function Notification(){
+    const [token, setToken] = useState(null);
+
+    useEffect(() => {
+        registerForPushNotificationsAsync().then(t => setToken(t ?? 'Sin token'));
+    }, []);
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Token de dispositivo:</Text>
+            <Text selectable>{token ?? 'Obteniendo...'}</Text>
+            <Button
+                title="Programar notificación"
+                onPress={scheduleNotification}
+            />
+        </View>
+    )
+}
